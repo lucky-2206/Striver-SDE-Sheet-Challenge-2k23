@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+long long maxSubarraySum(int arr[], int n)
+{
+    /*
+        Don't write main().
+        Don't read input, it is passed as function argument.    
+        No need to print anything.
+        Taking input and printing output is handled automatically.
+    */
+    long long ans=0;
+    long long currSum=0;
+    int in=0;
+    while(in<n)
+    {
+        currSum += arr[in];
+        if(currSum<0)
+            currSum=0;
+        ans = max(ans,currSum);
+        in++;
+    }
+    return ans;
+}
+// TC :- O(n)
+// SC -: O(1)
