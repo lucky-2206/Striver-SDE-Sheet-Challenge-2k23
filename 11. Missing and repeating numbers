@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+#define ll long long int
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+	ll Sn = 1ll*n*(n+1)/2;
+	ll S2n = 1ll*n*(n+1)*(2*n+1)/6;
+	ll S1=0,S2=0;
+    for (auto it : arr) 
+	{
+          S1 += it;
+          S2 += 1ll * it * it;
+    }
+
+	ll val1 = Sn-S1 ; // it will be equal to X-Y
+	ll val2 = S2n - S2; // it will be equal to  X^2-Y^2
+	ll val3 = val2/val1; // it will be equal to X+Y
+
+	// Now x = (val1+va3)/2
+	ll x = (val1+val3)/2;
+	ll y = x-val1;
+	return {x,y};
+
+}
+// TC :- O(n)
+// SC :- O(1)
