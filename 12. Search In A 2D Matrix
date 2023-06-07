@@ -1,0 +1,35 @@
+
+bool search(vector<int>v,int n, int target)
+{
+    int lb=0,ub=n-1;
+    while(lb<=ub)
+    {
+        int mid =lb+(ub-lb)/2;
+        if(v[mid]==target)
+            return true;
+        else if (v[mid]>target)
+            ub = mid-1;
+        else
+            lb = mid+1;
+    }
+    return false;
+}
+
+bool searchMatrix(vector<vector<int>>& mat, int target) {
+    int n = mat.size();
+    int m = mat[0].size();
+    int in=0;
+    while(in<n)
+    {
+        if(mat[in][m-1]<target)
+            in++;
+        else
+        {
+            return search(mat[in],m,target);
+        }
+    }
+    return false;     
+}
+
+TC :- O(n)+O(log(m))
+SC :- O(1)
