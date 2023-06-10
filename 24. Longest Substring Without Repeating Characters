@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    //Write your code here
+    int cnt=0,ans=1;
+    vector<int>freq(26,0);
+    int i=0,j=0;
+    int n = input.length();
+    while(j<n)
+    {
+        if(freq[input[j]-'a']==0)
+            freq[input[j]-'a']++;
+        else
+        {
+            // cout<<i<<" "<<j<<endl;
+            cnt = j-i;
+            ans = max(ans,cnt);
+            while (input[i] != input[j])
+            {
+              freq[input[i]-'a']--;
+              i++;
+            }
+            i++;
+        }
+        j++;
+    }
+    cnt = j-i;
+    ans = max(ans,cnt);
+    return ans;
+}
+
+// TC :- O(2*N)
+// SC :- O(N)
