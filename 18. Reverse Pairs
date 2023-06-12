@@ -1,0 +1,60 @@
+#include <bits/stdc++.h> 
+
+
+
+int merge(int lb,int mid,int ub,vector<int>&arr)
+{
+	int i=lb;
+	int j = mid+1;
+	int ans=0;
+	while(i<=mid)
+	{
+		while(j<=ub&&arr[i]>2ll*arr[j])
+			j++;
+		ans += j-(mid+1);
+        i++;
+	}
+	i=lb;
+	j=mid+1;
+	vector<int>v;
+	while(i<=mid&&j<=ub)
+	{
+		if(arr[i]>arr[j])
+		{
+			v.push_back(arr[j]);
+			j++;
+		}
+		else
+		{
+			v.push_back(arr[i]);
+			i++;
+		}
+	}
+	while(i<=mid)
+		v.push_back(arr[i++]);
+	while(j<=ub)
+		v.push_back(arr[j++]);
+	for(int i=lb;i<=ub;i++)
+		arr[i] = v[i-lb];
+	return ans;
+}
+int mergeSort(int lb,int ub,vector<int>&arr)
+{
+	int ans=0;
+    if (lb < ub)
+	{
+        int mid = lb + (ub - lb) / 2;
+        ans += mergeSort(lb, mid, arr);
+        ans += mergeSort(mid + 1, ub, arr);
+        ans += merge(lb, mid , ub, arr);
+    }
+	return ans;
+}
+int reversePairs(vector<int> &arr, int n){
+	// Write your code here.	
+	return mergeSort(0,n-1,arr);
+	// return ans;
+}
+
+// TC :- O(NlogN)
+// SC :- O(N)
