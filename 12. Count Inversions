@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+
+long long int ans=0;
+
+void merge(int lb,int mid,int ub,long long*arr)
+{
+    int i = lb;
+    int j = mid+1;
+    vector<int>v;
+    while(i<=mid&&j<=ub)
+    {
+        if(arr[i]>arr[j])
+        {
+            ans += mid-i+1;
+            v.push_back(arr[j]);
+            j++;
+        }
+        else
+        {
+            v.push_back(arr[i]);
+            i++;
+        }
+    }
+    while(i<=mid)
+        v.push_back(arr[i++]);
+    while(j<=ub)
+        v.push_back(arr[j++]);
+    for(int i=lb;i<=ub;i++)
+        arr[i] = v[i-lb];
+}
+void mergeSort(int lb,int ub,long long*arr)
+{
+    if(lb>=ub)
+        return;
+    int mid = lb+(ub-lb)/2;
+    mergeSort(lb,mid,arr);
+    mergeSort(mid+1,ub,arr);
+    merge(lb,mid,ub,arr);
+}
+
+
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    mergeSort(0,n-1,arr);
+    return ans;
+}
+
+// TC :- O(nlogn)
+// SC :- O(n)
