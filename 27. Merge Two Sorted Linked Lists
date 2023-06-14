@@ -27,31 +27,26 @@
 Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
 {
     // Write your code here.
-    Node<int>* ptr1 = first;
-    Node<int>* ptr2 = second;
-    Node<int>* temp = new Node<int>(-1);
-    Node<int>* ans = temp;
-    while(ptr1!=NULL&&ptr2!=NULL)
+    if(first==NULL)
+        return second;
+    if(second==NULL)
+        return first;
+     if(first->data>second->data)
+            swap(first,second);
+    Node<int>* res=first;
+    while(first!=NULL&&second!=NULL)
     {
-        if(ptr1->data<=ptr2->data)
+        Node<int>* temp=NULL;
+        while(first!=NULL&&first->data<=second->data)
         {
-            temp->next = ptr1;
-            ptr1 = ptr1->next;
+            temp = first;
+            first = first->next;
         }
-        else
-        {
-            temp->next = ptr2;
-            ptr2 = ptr2->next;
-        }
-        temp = temp->next;
-        
+        temp->next = second;
+        swap(first,second);
     }
-    if(ptr1)
-        temp->next = ptr1;
-    if(ptr2)
-        temp->next = ptr2;
-    return ans->next;
+    return res;
+    
 }
-
-// TC :- O(N) // N is the minimum length
-// SC :- O(N)
+// TC :- O(N+M)
+// SC :- O(1)
