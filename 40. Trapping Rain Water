@@ -1,28 +1,31 @@
 #include <bits/stdc++.h> 
 long getTrappedWater(long *arr, int n){
     // Write your code here.
-    vector<long>pre(n),suf(n);
     long ans=0ll;
-    long maxv = 0;
-    for(int i=0;i<n;i++)
+    long lmax = 0,rmax=0;
+    int l=0,r=n-1;
+    while(l<r)
     {
-        maxv = max(maxv,arr[i]);
-        pre[i] = maxv;
+        if(arr[l]<arr[r])
+        {
+            if(arr[l]>lmax)
+                lmax = arr[l];
+            else
+                ans += lmax-arr[l];
+            l++;
+        }
+        else
+        {
+            if(arr[r]>rmax)
+                rmax = arr[r];
+            else
+                ans += rmax-arr[r];
+            r--;
+        }
     }
-    maxv=0;
-    for(int i=n-1;i>=0;i--)
-    {
-        maxv  = max(maxv,arr[i]);
-        suf[i] = maxv;
-    }
-    for(int i=0;i<n;i++)
-    {
-        long tempv = min(pre[i],suf[i]);
-        if(arr[i]<tempv)
-            ans += tempv-arr[i];
-    }
+
     return ans;
 }
 
-// TC :- O(3N)
-// SC :- O(2N)
+// TC :- O(N)
+// SC :- O(1)
