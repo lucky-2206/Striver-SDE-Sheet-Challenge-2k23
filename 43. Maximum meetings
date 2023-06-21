@@ -1,0 +1,35 @@
+#include <bits/stdc++.h> 
+
+bool cmp(const vector<int>&a,const vector<int>&b)
+{
+    if(a[0]==b[0])
+        return a[2]<b[2];
+    return a[0]<b[0];
+}
+vector<int> maximumMeetings(vector<int> &start, vector<int> &end) {
+    // Write your code here.
+    vector<int>ans;
+    int n = start.size();
+    vector<vector<int>>v;
+    for(int i=0;i<n;i++)
+        v.push_back({end[i],start[i],i+1});
+    sort(v.begin(),v.end(),cmp);
+    // for(auto it:v)
+    //     cout<<it[0]<<" "<<it[1]<<" "<<it[2]<<endl;
+    int endTime = v[0][0];
+    ans.push_back(v[0][2]);
+    for(int i=1;i<n;i++)
+    {
+        int startTime = v[i][1];
+        int in = v[i][2];
+        if (startTime > endTime)
+        {
+          ans.push_back(in);
+          endTime = v[i][0];
+        }
+    }
+    return ans;
+}
+
+// TC :O(nLogn)
+// SC :- O(1)
