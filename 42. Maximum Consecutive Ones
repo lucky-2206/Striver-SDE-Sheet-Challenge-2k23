@@ -1,0 +1,32 @@
+int longestSubSeg(vector<int> &arr , int n, int k){
+    // Write your code here.
+    int cnt=0,ans=0;
+    int i=0,j=0;
+    while(j<n)
+    {
+        if(arr[j]||k)
+        {
+            if(arr[j]==0)
+                k--;
+            j++;
+            cnt++;
+            
+        }
+        else
+        {
+            while(i<j&&arr[i]!=0)
+            {
+                cnt--;
+                i++;
+            }
+            k++;
+            cnt--;
+            i++;
+        }
+        // cout<<i<<" "<<k<<" "<<cnt<<endl;
+        ans = max(ans,cnt);
+    }
+    return ans;
+}
+// TC :- O(N)
+// SC :- O(1)
