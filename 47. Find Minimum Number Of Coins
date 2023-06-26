@@ -1,0 +1,17 @@
+#include <bits/stdc++.h> 
+int findMinimumCoins(int amount) 
+{
+    // Write your code here
+    vector<int>currency = {1000,500,100,50,20,10,5,2,1};
+    int count=0;
+    for(int i=0;i<9;i++)
+    {
+        int ne = amount/currency[i];
+        amount -= currency[i]*ne;
+        count +=ne;
+    }
+    return count;
+}
+
+// TC :- O(1)
+// SC :- O(1)
