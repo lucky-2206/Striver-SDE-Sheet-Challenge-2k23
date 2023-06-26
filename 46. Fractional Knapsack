@@ -1,0 +1,35 @@
+
+bool cmp(const pair<int,int>&a,const pair<int,int>&b)
+{
+    return (1.0*a.second/a.first)>(1.0*b.second/b.first);
+}
+
+#include <bits/stdc++.h> 
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs.
+    sort(items.begin(),items.end(),cmp);
+    double profit=0;
+    for(int i=0;i<n&&w!=0;i++)
+    {
+        int wt = items[i].first;
+        int cost = items[i].second;
+        // cout<<wt<<" "<<cost<<" "<<w<<endl;
+        if(wt<=w)
+        {
+            profit += cost;
+            w -=wt;
+        }
+        else
+        {
+            double costPerWeight = 1.0*cost/wt;
+            profit += costPerWeight*w;
+            w=0;
+        }
+    }
+    return profit;
+}
+
+// TC :- O(nlogn)
+// SC :- O(1)
