@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+ void calc(int in,int sum,vector<int>&num,vector<int>&ans)
+{
+   if (in < 0) {
+     ans.push_back(sum);
+     return;
+   }
+    //pick
+    sum += num[in];
+    calc(in-1,sum,num,ans);
+    sum -= num[in];
+    calc(in-1,sum,num,ans);
+} 
+vector<int> subsetSum(vector<int> &num)
+{
+    // Write your code here.
+    vector<int>ans;
+    int n= num.size();
+    calc(n-1,0,num,ans);
+    sort(ans.begin(),ans.end());
+    return ans;
+}
+// TC:- O(2^N)
+// SC:- O(2^N)
