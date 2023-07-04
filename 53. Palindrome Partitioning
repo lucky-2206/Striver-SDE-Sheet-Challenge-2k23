@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+bool isPal(int i,int j,string&s)
+{
+    while(i<=j)
+    {
+        if(s[i++]!=s[j--])
+            return false;
+    }
+    return true;
+}
+void calc(int in,string&s,vector<string>&temp,vector<vector<string>>&ans)
+{
+    if(in==s.length())
+    {
+        ans.push_back(temp);
+        return;
+    }
+    for(int i=in;i<s.length();i++)
+    {
+        if(isPal(in,i,s))
+        {
+            string str = s.substr(in,i-in+1);
+            temp.push_back(str);
+            calc(i+1,s,temp,ans);
+            temp.pop_back();
+        }
+    }
+}
+
+vector<vector<string>> partition(string &s) 
+{
+    // Write your code here.
+    vector<string>temp;
+    vector<vector<string>>ans;
+    calc(0,s,temp,ans);
+    return ans;
+}
+
+// TC :- O( (2^n) *k*(n/2) )
+// SC :- O(k*x) where k is av length and x are number of such palindrome
