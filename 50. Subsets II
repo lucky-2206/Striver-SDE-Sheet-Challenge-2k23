@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+
+void calc(int in,int n ,vector<int>&arr,vector<int>&v,vector<vector<int>>&ans)
+{
+    
+    ans.push_back(v);
+    for(int i=in;i<n;i++)
+    {
+        if(i!=in&&arr[i]==arr[i-1])
+            continue;
+        v.push_back(arr[i]);
+        calc(i+1,n,arr,v,ans);
+        v.pop_back();
+    }
+}
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    sort(arr.begin(),arr.end());
+    vector<int>v;
+    vector<vector<int>>ans;
+    calc(0,n,arr,v,ans);
+    return ans;
+    
+}
+
+// TC :- O(2^N * k) k for pushing v into ans vector
+// SC :- O(2^N *k)
