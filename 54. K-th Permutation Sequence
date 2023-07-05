@@ -1,0 +1,33 @@
+string kthPermutation(int n, int k) {
+    // Write your code here.
+    string st="";
+    string ans="";
+    int ne =n;
+    int fact=1;
+    for (int i = 1; i <= n; i++) 
+    {
+      fact *= i;
+      st += (i + '0');
+    }
+    k--;
+    fact /=ne;
+    ne--;
+    for(int i=1;i<=n;i++)
+    {
+        int in = k/fact;
+        // cout<<in<<" "<<st[in]<<endl;
+        ans +=  st[in];
+        st.erase(st.begin()+in);
+        // cout<<st<<endl;
+        k = k%fact;
+        if (ne != 0) {
+          fact /= ne;
+          ne--;
+        }
+    }
+    return ans;
+    
+}
+
+// TC :- O(N^2)
+// SC :- O(1)
