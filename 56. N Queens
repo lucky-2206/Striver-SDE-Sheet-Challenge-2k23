@@ -1,0 +1,47 @@
+bool isSafe(int row,int col,int n,vector<int>&dir1,vector<int>&dir2,vector<int>&dir3)
+{
+    if(dir1[row]||dir2[row+col]||dir3[n-1+row-col])
+        return false;
+    return true;
+}
+void calc(int col,int n,vector<int>&dir1,vector<int>&dir2,vector<int>&dir3,vector<int>&temp,
+                                            vector<vector<int>>&ans)
+{
+    if(col==n)
+    {
+       
+        ans.push_back(temp);
+        return;
+    }
+    for(int row=0;row<n;row++)
+    {
+        if(isSafe(row,col,n,dir1,dir2,dir3))
+        {
+            dir1[row]=1;
+            dir2[row+col]=1;
+            dir3[n-1+row-col]=1;
+            int num = (row*n)+col;
+            temp[num]=1;
+            calc(col+1,n,dir1,dir2,dir3,temp,ans);
+            dir1[row]=0;
+            dir2[row+col]=0;
+            dir3[n-1+row-col]=0;
+            temp[num]=0;
+        }
+    }
+}
+
+
+vector<vector<int>> solveNQueens(int n) {
+    // Write your code here.
+    vector<vector<int>>ans;
+    vector<int>temp(n*n,0);
+    vector<int>dir1(n,0);
+    vector<int>dir2((2*n)-1,0);
+    vector<int>dir3((2*n)-1,0);
+    calc(0,n,dir1,dir2,dir3,temp,ans);
+    return ans;
+}
+
+// TC :- Exponential
+// SC :- O(N)
