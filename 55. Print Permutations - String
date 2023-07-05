@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+void calc(int in,string&s,vector<string>&ans)
+{
+  if (in == s.length()) 
+  {
+    ans.push_back(s);
+    return;
+  }
+  for(int i=in;i<s.length();i++)
+  {
+      swap(s[i],s[in]);
+      calc(in+1,s,ans);
+      swap(s[i],s[in]);
+  }
+
+} 
+vector<string> findPermutations(string &s) {
+    // Write your code here.
+    vector<string>ans;
+    calc(0,s,ans);
+    return ans;
+}
+
+// TC :- O(N!*N)
+// SC :- O(N)
