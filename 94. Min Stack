@@ -1,0 +1,66 @@
+#include <bits/stdc++.h> 
+// Implement class for minStack.
+class minStack
+{
+	// Write your code here.
+	stack<pair<int,int>>s;
+	int ne;
+	public:
+		// Constructor
+		minStack() 
+		{ 
+			// Write your code here.
+			ne=0;
+		}
+		
+		// Function to add another element equal to num at the top of stack.
+		void push(int num)
+		{
+			// Write your code here.
+			if(ne==0)
+				s.push({num,num});
+			else
+			{
+				int minv = s.top().second;
+				if(minv>num)
+					s.push({num,num});
+				else
+					s.push({num,minv});
+			}
+			ne++;
+		}
+		
+		// Function to remove the top element of the stack.
+		int pop()
+		{
+			// Write your code here.
+			if(ne==0)
+				return -1;
+			int val = s.top().first;
+			ne--;
+			s.pop();
+			return val;
+		}
+		
+		// Function to return the top element of stack if it is present. Otherwise return -1.
+		int top()
+		{
+			// Write your code here.
+			if(ne==0)
+				return -1;
+			return s.top().first;
+		}
+		
+		// Function to return minimum element of stack if it is present. Otherwise return -1.
+		int getMin()
+		{
+			// Write your code here.
+			if(ne==0)
+				return -1;
+			int val = s.top().second;
+			return val;
+		}
+};
+
+// TC :- O(1)
+// SC :- O(2*N)
