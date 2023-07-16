@@ -1,0 +1,22 @@
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    string ans=arr[0];
+    for(int i=1;i<n;i++)
+    {
+        int in=0;
+        int l1 = ans.length();
+        int l2 = arr[i].length();
+        int ne = min(l1,l2);
+        string st = arr[i];
+        while(in<ne&&st[in]==ans[in])
+            in++;
+        ans = ans.substr(0,in);
+    }
+    return ans;
+}
+
+// TC :- O(N*M) //m is the length of shortest string
+// SC :- O(1)
+
+
