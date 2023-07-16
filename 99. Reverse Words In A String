@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+string reverseString(string &st){
+	// Write your code here.
+	string ans="";
+	int n = st.length();
+	int i=n-1,j;
+	while(i>=0&&st[i]==' ')
+		i--;
+	j=i;
+	while(i>=0)
+	{
+		if(st[i]==' ')
+		{
+			string temp = st.substr(i+1,j-i+1);
+			// cout<<temp<<" "<<temp.length()<<endl;
+			ans += temp+" ";
+			while(i>=0&&st[i]==' ')
+				i--;
+			j=i;
+		}
+		i--;
+	}
+	if(st[0]!=' ')
+	{
+	string temp = st.substr(0,j+1);
+	ans += temp+" ";
+	}
+
+	return ans;
+}
+
+// TC :- O(N)
+// SC :- O(N) 
