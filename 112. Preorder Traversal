@@ -11,20 +11,25 @@
         TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
     };
 */
-void calc(TreeNode* root,vector<int>&ans)
-{
-    if(root==NULL)
-        return;
-    
-    ans.push_back(root->data);
-    calc(root->left,ans);
-    calc(root->right,ans);
-}
 vector<int> getPreOrderTraversal(TreeNode *root)
 {
     // Write your code here.
     vector<int>ans;
-    calc(root,ans);
+    stack<TreeNode*>st;
+    if(root==NULL)
+        return ans;
+    st.push(root);
+    
+    while(!st.empty())
+    {
+        auto it = st.top();
+        st.pop();
+        ans.push_back(it->data);
+        if(it->right)
+            st.push(it->right);
+        if(it->left)
+            st.push(it->left);
+    }
     return ans;
 }
 
