@@ -1,0 +1,38 @@
+#include <bits/stdc++.h> 
+string writeAsYouSpeak(int n) 
+{
+	// Write your code here.
+	string ans="";
+	while(n--)
+	{
+		string st = ans;
+		ans="";
+		if(st=="")
+			ans="1";
+		else
+		{
+			char ch=st[0];
+			int cnt=0;
+			int in=0;
+			while(in<st.length())
+			{
+				if(ch==st[in])
+					cnt++;
+				else
+				{
+					// cout<<cnt<<" "<<ch<<endl;
+					ans += to_string(cnt)+ch;
+					ch=st[in];
+					cnt=1;
+				}
+				in++;
+			}
+			// cout<<cnt<<" "<<ch<<endl;
+			ans += to_string(cnt)+ch;
+		}
+	}
+	return ans;	
+}
+
+// TC :- O(N*M)
+// SC :- O(M)
