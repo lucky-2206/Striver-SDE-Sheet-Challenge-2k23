@@ -1,0 +1,65 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+Following is the Binary Tree node class
+    
+template <typename T = int>
+class TreeNode
+{
+public:
+    T data;
+    TreeNode<T> *left;
+    TreeNode<T> *right;
+
+    TreeNode(T val)
+    {
+        this->data = val;
+        left = NULL;
+        right = NULL;
+    }
+
+    ~TreeNode()
+    {
+        if (left != NULL)
+        {
+            delete left;
+        }
+        if (right != NULL)
+        {
+            delete right;
+        }
+    }
+};
+
+************************************************************/
+void calc(TreeNode<int>*root,int ver,int lvl,map<int,map<int,vector<int>>>&mp)
+{
+    if(root==NULL)
+        return;
+    mp[ver][lvl].push_back(root->data);
+    if(root->left)
+        calc(root->left,ver-1,lvl+1,mp);
+    if(root->right)
+        calc(root->right,ver+1,lvl+1,mp);
+}
+vector<int> verticalOrderTraversal(TreeNode<int> *root)
+{
+    //    Write your code here.
+    map<int,map<int,vector<int>>>mp;
+    vector<int>ans;
+    if(!root)
+        return ans;
+    calc(root,0,0,mp);
+    for(auto it:mp)
+    {
+        for(auto itr:it.second)
+        {
+            for(auto itre:itr.second)
+            ans.push_back(itre);
+        }
+    }
+    return ans;
+}
+
+// TC :- O(N*LogN*logN*logN)
+// SC :- O(N)
