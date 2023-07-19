@@ -1,0 +1,63 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void calc(TreeNode<int>* root,int ver,int lvl,map<int,int>&mp)
+{
+    if(!root)
+        return ;
+
+    if(mp[ver]==0)
+        mp[ver]=root->val;
+    if(root->left)
+        calc(root->left,ver-1,lvl+1,mp);
+    if(root->right)
+        calc(root->right,ver+1,lvl+1,mp);
+}
+vector<int> getTopView(TreeNode<int> *root) {
+    // Write your code here.
+    map<int,int>mp;
+    vector<int>ans;
+    if(!root)
+        return ans;
+    queue<pair<TreeNode<int>*,int>>q;
+    q.push({root,0});
+    while(!q.empty())
+    {
+        auto it = q.front();
+        int ne = q.size();
+        q.pop();
+        int node = it.first->val;
+        int ver = it.second;
+        if(!mp[ver])
+            mp[ver]=node;
+        if(it.first->left)
+            q.push({it.first->left,ver-1});
+        if(it.first->right)
+            q.push({it.first->right,ver+1});
+    }
+
+    for(auto it:mp)
+    {
+            ans.push_back(it.second);
+    }
+    return ans;
+}
+// TC :- O(N)
+// SC :- O(N)
