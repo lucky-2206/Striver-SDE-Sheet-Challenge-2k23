@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+
+void bfs(int root,vector<int>&vis,vector<int>&ans,vector<int>adj[])
+{
+    queue<int>q;
+    q.push(root);
+    vis[root]=1;
+    while(!q.empty())
+    {
+        int node = q.front();
+        q.pop();
+        ans.push_back(node);
+        for(auto it:adj[node])
+        {
+            if(!vis[it])
+            {
+            vis[it]=1;
+            q.push(it);
+            }
+        }
+    }
+}
+vector<int> BFS(int vertex, vector<pair<int, int>> edges)
+{
+    // Write your code here
+    vector<int>adj[vertex];
+    for(auto it:edges)
+    {
+        adj[it.first].push_back(it.second);
+        adj[it.second].push_back(it.first);
+    }
+    for(int i=0;i<vertex;i++)
+        sort(adj[i].begin(),adj[i].end());
+    vector<int>vis(vertex,0);
+    vector<int>ans;
+    for(int i=0;i<vertex;i++)
+    {
+        if(!vis[i])
+            bfs(i,vis,ans,adj);
+            
+    }
+    return ans;
+}
+
+// TC:-O(N)+O(2E)
+// SC:-O(N)
