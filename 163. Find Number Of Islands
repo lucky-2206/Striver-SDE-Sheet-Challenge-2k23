@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+void bfs(int i,int j,int n,int m,int** arr,vector<vector<int>>&vis)
+{
+   queue<pair<int,int>>q;
+   q.push({i,j});
+   while(!q.empty())
+   {
+      auto it = q.front();
+      q.pop();
+      int x = it.first;
+      int y = it.second;
+      for(int i=-1;i<=1;i++)
+      {
+         for(int j=-1;j<=1;j++)
+         {
+            int dx = x+i;
+            int dy = y+j;
+            if(dx>=0&&dx<n&&dy>=0&&dy<m&&arr[dx][dy]&&!vis[dx][dy])
+            {
+               vis[dx][dy]=1;
+               q.push({dx,dy});
+            }
+         }
+      }
+   }
+}
+
+
+int getTotalIslands(int** arr, int n, int m)
+{
+   // Write your code here.
+   vector<vector<int>>vis(n,vector<int>(m,0));
+   int cnt=0;
+   for(int i=0;i<n;i++)
+   {
+      for(int j=0;j<m;j++)
+      {
+         if(arr[i][j]&&!vis[i][j])
+         {
+            cnt++;
+            bfs(i,j,n,m,arr,vis);
+         }
+      }
+   }
+   return cnt;
+}
+
+// TC :- O(N*M)
+// SC :- O(N*M)
