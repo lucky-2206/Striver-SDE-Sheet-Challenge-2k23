@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+bool dfs(int node ,int color,vector<int>&col,vector<int>adj[])
+{
+	col[node]=color;
+	for(auto it:adj[node])
+	{
+		if(col[it]==-1)
+		{
+			if(dfs(it,!color,col,adj)==false)
+				return false;
+		}
+		else if(col[it]==color)
+			return false;
+	}
+	return true;
+}
+
+bool isGraphBirpatite(vector<vector<int>> &edges) {
+	// Write your code here.
+	int n = edges.size();
+	int m = edges[0].size();
+	vector<int>adj[n];
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			if(edges[i][j])
+			{
+				adj[i].push_back(j);
+				adj[j].push_back(i);
+			}
+		}
+	}
+	vector<int>col(n,-1);
+	for(int i=0;i<n;i++)
+	{
+		if(col[i]==-1)
+		{
+			if(dfs(i,0,col,adj)==false)
+				return false;
+		}
+	}
+	return true;
+}
+
+// TC :- O(V+2E)
+// SC :- O(V)
