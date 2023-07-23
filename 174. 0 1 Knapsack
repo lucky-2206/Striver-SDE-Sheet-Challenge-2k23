@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+int calc(int in,int n ,int w,vector<int>&values,vector<int>&weights,vector<vector<int>>&dp)
+{
+	if(in==n)
+		return 0;
+	if(dp[in][w]!=-1)
+		return dp[in][w];
+
+	int pick = -1e8;
+	if(w-weights[in]>=0)
+		pick =values[in]+calc(in+1,n,w-weights[in],values,weights,dp);
+	int npick = calc(in+1,n,w,values,weights,dp);
+	return dp[in][w]=max(pick,npick);
+}
+
+
+
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	// Write your code here
+	vector<vector<int>>dp(n,vector<int>(w+1,-1));
+	return calc(0,n,w,values,weights,dp);
+}
+
+// TC :-O(N*W)
+// SC :-O(N*W)
