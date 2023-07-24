@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+
+int calc(int in,int len,int n,vector<int>&prices,vector<vector<int>>&dp)
+{
+	if(len==0)
+		return 0;
+	if(in==n)
+		return -1e5;
+	if(dp[in][len]!=-1)
+		return dp[in][len];
+	int pick=0,npick;
+	if(len-in-1>=0)
+		pick = prices[in]+calc(in,len-in-1,n,prices,dp);
+	npick = calc(in+1,len,n,prices,dp);
+
+	return dp[in][len]=max(pick,npick);
+}
+
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+	vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+	return calc(0,n,n,price,dp);
+}
+
+// TC :- O(n*n)
+// SC :- O(n*n)
