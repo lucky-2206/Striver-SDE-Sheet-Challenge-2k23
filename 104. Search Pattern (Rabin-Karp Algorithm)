@@ -1,0 +1,15 @@
+vector<int> stringMatch(string text, string pattern) {
+	// Write your code here.
+	int n = text.length();
+	int m = pattern.length();
+	vector<int>ans;
+	for(int i=0;i<n-m+1;i++)
+	{
+		if(text.substr(i,m)==pattern)
+			ans.push_back(i+1);
+	}
+	return ans;
+}
+
+// TC :- O(n*m)
+// SC :- O(1)
