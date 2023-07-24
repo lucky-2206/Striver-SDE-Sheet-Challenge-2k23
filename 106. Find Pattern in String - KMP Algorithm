@@ -1,0 +1,13 @@
+#include <bits/stdc++.h> 
+bool findPattern(string p, string s)
+{
+    // Write your code here.
+    int i=0,j=0;
+    int l1=p.length();
+    int l2=s.length();
+   if(s.find(p)!=string::npos)
+    return true;
+    return false;
+}
+
+// TC :(M*N)
