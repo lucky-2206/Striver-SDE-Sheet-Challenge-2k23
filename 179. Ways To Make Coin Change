@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+long calc(int in,int n,int value,int* denominations,vector<vector<long>>&dp)
+{
+    if(value==0)
+        return 1;
+    if(in==n)
+        return 0;
+    if(dp[in][value]!=-1)
+        return dp[in][value];
+    long pick=0,npick=0;
+    if(value-denominations[in]>=0)
+        pick = calc(in,n,value-denominations[in],denominations,dp);
+    npick  = calc(in+1,n,value,denominations,dp);
+    return dp[in][value] = pick+npick;
+
+}
+
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    //Write your code here
+    // sort(denominations,denominations+n);
+    vector<vector<long>>dp(n,vector<long>(value+1,-1));
+    return calc(0,n,value,denominations,dp);
+}
+
+// TC :- O(n*value)
+// SC :- O(n*value)
